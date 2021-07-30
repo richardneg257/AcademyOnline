@@ -42,5 +42,11 @@ namespace AcademyOnline.WebAPI.Controllers
             course.CourseId = courseId;
             return await mediator.Send(course);
         }
+
+        [HttpDelete("{courseId}")]
+        public async Task<ActionResult<Unit>> Delete(int courseId)
+        {
+            return await mediator.Send(new DeleteCourse.DeleteCourseQuery() { CourseId = courseId });
+        }
     }
 }
