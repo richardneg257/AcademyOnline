@@ -2,10 +2,7 @@
 using AcademyOnline.Persistence;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +12,7 @@ namespace AcademyOnline.Application.Courses
     {
         public class DeleteCourseQuery : IRequest
         {
-            public int CourseId { get; set; }
+            public Guid CourseId { get; set; }
         }
 
         public class DeleteCourseHandler : IRequestHandler<DeleteCourseQuery>

@@ -1,15 +1,19 @@
 using AcademyOnline.Application.Courses;
+using AcademyOnline.Domain;
 using AcademyOnline.Persistence;
 using AcademyOnline.WebAPI.Middleware;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -33,6 +37,13 @@ namespace AcademyOnline.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AcademyOnlineContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            var builder = services.AddIdentityCore<User>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<AcademyOnlineContext>();
+            identityBuilder.AddSignInManager<SignInManager<User>>();
+            services.TryAddSingleton<ISystemClock, SystemClock>();
+
             services.AddMediatR(typeof(GetCourses.GetCoursesHandler).Assembly);
             services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CreateCourse>());
             services.AddSwaggerGen(c =>

@@ -3,10 +3,7 @@ using AcademyOnline.Persistence;
 using FluentValidation;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +13,7 @@ namespace AcademyOnline.Application.Courses
     {
         public class UpdateCourseQuery : IRequest
         {
-            public int CourseId { get; set; }
+            public Guid CourseId { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime? PublicationDate { get; set; }

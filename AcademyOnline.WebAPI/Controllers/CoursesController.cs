@@ -2,6 +2,7 @@
 using AcademyOnline.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpGet("{courseId}")]
-        public async Task<ActionResult<Course>> GetById(int courseId)
+        public async Task<ActionResult<Course>> GetById(Guid courseId)
         {
             return await mediator.Send(new GetCourseById.GetCourseByIdQuery() { CourseId = courseId });
         }
@@ -37,14 +38,14 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpPut("{courseId}")]
-        public async Task<ActionResult<Unit>> Update(int courseId, [FromBody] UpdateCourse.UpdateCourseQuery course)
+        public async Task<ActionResult<Unit>> Update(Guid courseId, [FromBody] UpdateCourse.UpdateCourseQuery course)
         {
             course.CourseId = courseId;
             return await mediator.Send(course);
         }
 
         [HttpDelete("{courseId}")]
-        public async Task<ActionResult<Unit>> Delete(int courseId)
+        public async Task<ActionResult<Unit>> Delete(Guid courseId)
         {
             return await mediator.Send(new DeleteCourse.DeleteCourseQuery() { CourseId = courseId });
         }
