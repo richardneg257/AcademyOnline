@@ -1,4 +1,6 @@
+using AcademyOnline.Application.Courses;
 using AcademyOnline.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +31,7 @@ namespace AcademyOnline.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AcademyOnlineContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMediatR(typeof(GetCourses.GetCoursesHandler).Assembly);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
