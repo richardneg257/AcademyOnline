@@ -31,8 +31,15 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Crear([FromBody] CreateCourse.CreateCourseQuery course)
+        public async Task<ActionResult<Unit>> Create([FromBody] CreateCourse.CreateCourseQuery course)
         {
+            return await mediator.Send(course);
+        }
+
+        [HttpPut("{courseId}")]
+        public async Task<ActionResult<Unit>> Update(int courseId, [FromBody] UpdateCourse.UpdateCourseQuery course)
+        {
+            course.CourseId = courseId;
             return await mediator.Send(course);
         }
     }
