@@ -1,8 +1,10 @@
-﻿using AcademyOnline.Persistence;
+﻿using AcademyOnline.Application.Handlers;
+using AcademyOnline.Persistence;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,7 +31,10 @@ namespace AcademyOnline.Application.Courses
             {
                 var course = await context.Courses.FindAsync(request.CourseId);
                 if (course == null)
-                    throw new Exception("No se encontró el curso");
+                {
+                    //throw new Exception("No se encontró el curso");
+                    throw new ExceptionHandler(HttpStatusCode.NotFound, new { message = "ExceptionHandler: No se encontró el curso" });
+                }
 
                 context.Remove(course);
                 var state = await context.SaveChangesAsync();

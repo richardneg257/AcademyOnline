@@ -1,9 +1,11 @@
-﻿using AcademyOnline.Domain;
+﻿using AcademyOnline.Application.Handlers;
+using AcademyOnline.Domain;
 using AcademyOnline.Persistence;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +31,8 @@ namespace AcademyOnline.Application.Courses
             public async Task<Course> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
             {
                 var course = await context.Courses.FindAsync(request.CourseId);
+                if (course == null)
+                    throw new ExceptionHandler(HttpStatusCode.NotFound, new { message = "ExceptionHandler: No se encontró el curso" });
                 return course;
             }
         }

@@ -1,9 +1,11 @@
-﻿using AcademyOnline.Persistence;
+﻿using AcademyOnline.Application.Handlers;
+using AcademyOnline.Persistence;
 using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,7 +45,7 @@ namespace AcademyOnline.Application.Courses
             {
                 var course = await context.Courses.FindAsync(request.CourseId);
                 if (course == null)
-                    throw new Exception("El curso no existe");
+                    throw new ExceptionHandler(HttpStatusCode.NotFound, new { message = "ExceptionHandler: No se encontró el curso" });
 
                 course.Title = request.Title ?? course.Title;
                 course.Description = request.Description ?? course.Description;
