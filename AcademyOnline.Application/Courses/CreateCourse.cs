@@ -1,5 +1,6 @@
 ﻿using AcademyOnline.Domain;
 using AcademyOnline.Persistence;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,17 @@ namespace AcademyOnline.Application.Courses
         {
             public string Title { get; set; }
             public string Description { get; set; }
-            public DateTime PublicationDate { get; set; }
+            public DateTime? PublicationDate { get; set; }
+        }
+
+        public class CreateCourseQueryValidation : AbstractValidator<CreateCourseQuery>
+        {
+            public CreateCourseQueryValidation()
+            {
+                RuleFor(x => x.Title).NotEmpty();
+                RuleFor(x => x.Description).NotEmpty();
+                RuleFor(x => x.PublicationDate).NotEmpty();
+            }
         }
 
         public class CreateCourseHandler : IRequestHandler<CreateCourseQuery>

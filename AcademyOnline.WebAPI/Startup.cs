@@ -1,5 +1,6 @@
 using AcademyOnline.Application.Courses;
 using AcademyOnline.Persistence;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,7 @@ namespace AcademyOnline.WebAPI
         {
             services.AddDbContext<AcademyOnlineContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMediatR(typeof(GetCourses.GetCoursesHandler).Assembly);
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CreateCourse>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AcademyOnline.WebAPI", Version = "v1" });
