@@ -29,5 +29,11 @@ namespace AcademyOnline.WebAPI.Controllers
         {
             return await mediator.Send(new GetCourseById.GetCourseByIdQuery() { CourseId = courseId });
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Crear([FromBody] CreateCourse.CreateCourseQuery course)
+        {
+            return await mediator.Send(course);
+        }
     }
 }
