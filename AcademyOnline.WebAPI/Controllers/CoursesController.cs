@@ -1,6 +1,7 @@
 ﻿using AcademyOnline.Application.Courses;
 using AcademyOnline.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<Course>>> Get()
         {
             return await mediator.Send(new GetCourses.GetCoursesQuery());
