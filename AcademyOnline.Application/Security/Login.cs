@@ -1,4 +1,5 @@
-﻿using AcademyOnline.Application.Handlers;
+﻿using AcademyOnline.Application.Contracts;
+using AcademyOnline.Application.Handlers;
 using AcademyOnline.Domain;
 using FluentValidation;
 using MediatR;
@@ -30,11 +31,13 @@ namespace AcademyOnline.Application.Security
         {
             private readonly UserManager<User> userManager;
             private readonly SignInManager<User> signInManager;
+            private readonly IJwtGenerator jwtGenerator;
 
-            public LoginHandler(UserManager<User> userManager, SignInManager<User> signInManager)
+            public LoginHandler(UserManager<User> userManager, SignInManager<User> signInManager, IJwtGenerator jwtGenerator)
             {
                 this.userManager = userManager;
                 this.signInManager = signInManager;
+                this.jwtGenerator = jwtGenerator;
             }
 
             public async Task<UserDto> Handle(LoginQuery request, CancellationToken cancellationToken)
@@ -48,7 +51,7 @@ namespace AcademyOnline.Application.Security
                     return new UserDto()
                     {
                         FullName = user.FullName,
-                        Token = "falta",
+                        Token = jwtGenerator.GenerateToken(user),
                         UserName = user.UserName,
                         Email = user.Email,
                         Image = null

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademyOnline.WebAPI", "AcademyOnline.WebAPI\AcademyOnline.WebAPI.csproj", "{EBE855C8-62FF-4A1C-88AA-C85BD42A8C4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcademyOnline.WebAPI", "AcademyOnline.WebAPI\AcademyOnline.WebAPI.csproj", "{EBE855C8-62FF-4A1C-88AA-C85BD42A8C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademyOnline.Domain", "AcademyOnline.Domain\AcademyOnline.Domain.csproj", "{82901C26-0683-4BF2-9E1C-7CB6931FF67D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcademyOnline.Domain", "AcademyOnline.Domain\AcademyOnline.Domain.csproj", "{82901C26-0683-4BF2-9E1C-7CB6931FF67D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademyOnline.Persistence", "AcademyOnline.Persistence\AcademyOnline.Persistence.csproj", "{EB335BED-88FD-47E1-8FF1-85BFFC7BF907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcademyOnline.Persistence", "AcademyOnline.Persistence\AcademyOnline.Persistence.csproj", "{EB335BED-88FD-47E1-8FF1-85BFFC7BF907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademyOnline.Application", "AcademyOnline.Application\AcademyOnline.Application.csproj", "{B5DBA033-7504-42A6-A03C-B27D9D524011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcademyOnline.Application", "AcademyOnline.Application\AcademyOnline.Application.csproj", "{B5DBA033-7504-42A6-A03C-B27D9D524011}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademyOnline.Security", "AcademyOnline.Security\AcademyOnline.Security.csproj", "{F67D1A98-C0C2-42BC-92F5-C89C94DF8247}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B5DBA033-7504-42A6-A03C-B27D9D524011}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5DBA033-7504-42A6-A03C-B27D9D524011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5DBA033-7504-42A6-A03C-B27D9D524011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67D1A98-C0C2-42BC-92F5-C89C94DF8247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67D1A98-C0C2-42BC-92F5-C89C94DF8247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67D1A98-C0C2-42BC-92F5-C89C94DF8247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67D1A98-C0C2-42BC-92F5-C89C94DF8247}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

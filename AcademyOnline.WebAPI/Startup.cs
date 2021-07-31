@@ -1,6 +1,8 @@
+using AcademyOnline.Application.Contracts;
 using AcademyOnline.Application.Courses;
 using AcademyOnline.Domain;
 using AcademyOnline.Persistence;
+using AcademyOnline.Security.TokenSecurity;
 using AcademyOnline.WebAPI.Middleware;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -45,6 +47,9 @@ namespace AcademyOnline.WebAPI
             services.TryAddSingleton<ISystemClock, SystemClock>();
 
             services.AddMediatR(typeof(GetCourses.GetCoursesHandler).Assembly);
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
+
             services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CreateCourse>());
             services.AddSwaggerGen(c =>
             {
