@@ -24,5 +24,11 @@ namespace AcademyOnline.WebAPI.Controllers
         {
             return await mediator.Send(login);
         }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register([FromBody] Register.RegisterQuery data)
+        {
+            return await mediator.Send(data);
+        }
     }
 }
