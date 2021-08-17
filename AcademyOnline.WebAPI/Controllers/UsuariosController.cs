@@ -30,5 +30,11 @@ namespace AcademyOnline.WebAPI.Controllers
         {
             return await mediator.Send(data);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetUser()
+        {
+            return await mediator.Send(new CurrentUser.CurrentUserQuery());
+        }
     }
 }

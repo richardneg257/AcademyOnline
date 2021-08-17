@@ -54,6 +54,7 @@ namespace AcademyOnline.WebAPI
             services.AddMediatR(typeof(GetCourses.GetCoursesHandler).Assembly);
 
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserSession, UserSession>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Mi palabra secreta"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
