@@ -1,6 +1,7 @@
 ﻿using AcademyOnline.Application.Security;
 using AcademyOnline.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace AcademyOnline.WebAPI.Controllers
 {
     [Route("api/Usuarios")]
     [ApiController]
+    [AllowAnonymous]
     public class UsuariosController : ControllerBase
     {
         private readonly IMediator mediator;

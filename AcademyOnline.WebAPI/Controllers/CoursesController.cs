@@ -21,7 +21,6 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<List<Course>>> Get()
         {
             return await mediator.Send(new GetCourses.GetCoursesQuery());
