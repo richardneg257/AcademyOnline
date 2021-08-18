@@ -2,6 +2,7 @@
 using AcademyOnline.Persistence;
 using MediatR;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,12 @@ namespace AcademyOnline.Application.Courses
 
             public async Task<Unit> Handle(DeleteCourseQuery request, CancellationToken cancellationToken)
             {
+                var instructorsDb = context.CourseInstuctor.Where(x => x.CourseId == request.CourseId).ToList();
+                foreach(var instructor in instructorsDb)
+                {
+                    context.CourseInstuctor.Remove(instructor);
+                }
+
                 var course = await context.Courses.FindAsync(request.CourseId);
                 if (course == null)
                 {
