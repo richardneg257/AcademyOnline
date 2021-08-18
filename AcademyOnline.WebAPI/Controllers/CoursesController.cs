@@ -21,13 +21,13 @@ namespace AcademyOnline.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Course>>> Get()
+        public async Task<ActionResult<List<CourseDto>>> Get()
         {
             return await mediator.Send(new GetCourses.GetCoursesQuery());
         }
 
         [HttpGet("{courseId}")]
-        public async Task<ActionResult<Course>> GetById(Guid courseId)
+        public async Task<ActionResult<CourseDto>> GetById(Guid courseId)
         {
             return await mediator.Send(new GetCourseById.GetCourseByIdQuery() { CourseId = courseId });
         }
