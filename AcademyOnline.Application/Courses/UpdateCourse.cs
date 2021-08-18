@@ -1,8 +1,11 @@
 ﻿using AcademyOnline.Application.Handlers;
+using AcademyOnline.Domain;
 using AcademyOnline.Persistence;
 using FluentValidation;
 using MediatR;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +20,7 @@ namespace AcademyOnline.Application.Courses
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime? PublicationDate { get; set; }
+            public List<Guid> InstructorsLink { get; set; }
         }
 
         public class UpdateCourseQueryValidation : AbstractValidator<UpdateCourseQuery>
@@ -47,6 +51,24 @@ namespace AcademyOnline.Application.Courses
                 course.Title = request.Title ?? course.Title;
                 course.Description = request.Description ?? course.Description;
                 course.PublicationDate = request.PublicationDate ?? course.PublicationDate;
+
+                if (request.InstructorsLink != null && request.InstructorsLink.Count > 0)
+                {
+                    var instructorsDb = context.CourseInstuctor.Where(x => x.CourseId == request.CourseId).ToList();
+                    foreach(var courseInstructor in instructorsDb)
+                    {
+                        context.CourseInstuctor.Remove(courseInstructor);
+                    }
+                    foreach(var instructorId in request.InstructorsLink)
+                    {
+                        var newCourseInstructor = new CourseInstructor
+                        {
+                            CourseId = request.CourseId,
+                            InstructorId = instructorId
+                        };
+                        context.CourseInstuctor.Add(newCourseInstructor);
+                    }
+                }
 
                 var status = await context.SaveChangesAsync();
                 if (status > 0)
