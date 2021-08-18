@@ -18,6 +18,7 @@ namespace AcademyOnline.Application.Courses
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime? PublicationDate { get; set; }
+            public List<Guid> InstructorsLink { get; set; }
         }
 
         public class CreateCourseQueryValidation : AbstractValidator<CreateCourseQuery>
@@ -41,14 +42,30 @@ namespace AcademyOnline.Application.Courses
 
             public async Task<Unit> Handle(CreateCourseQuery request, CancellationToken cancellationToken)
             {
+                var courseId = Guid.NewGuid();
                 var course = new Course()
                 {
+                    CourseId = courseId,
                     Title = request.Title,
                     Description = request.Description,
                     PublicationDate = request.PublicationDate
                 };
 
                 context.Courses.Add(course);
+
+                if (request.InstructorsLink != null)
+                {
+                    foreach(var id in request.InstructorsLink)
+                    {
+                        var courseInstructor = new CourseInstructor
+                        {
+                            CourseId = courseId,
+                            InstructorId = id
+                        };
+                        context.CourseInstuctor.Add(courseInstructor);
+                    }
+                }
+
                 var state = await context.SaveChangesAsync();
                 if (state > 0)
                     return Unit.Value;
