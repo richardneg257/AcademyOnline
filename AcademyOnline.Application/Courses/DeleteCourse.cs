@@ -33,6 +33,18 @@ namespace AcademyOnline.Application.Courses
                     context.CourseInstuctor.Remove(instructor);
                 }
 
+                var comments = context.Comments.Where(x => x.CourseId == request.CourseId).ToList();
+                foreach(var comment in comments)
+                {
+                    context.Comments.Remove(comment);
+                }
+
+                var price = context.Prices.FirstOrDefault(x => x.CourseId == request.CourseId);
+                if (price != null)
+                {
+                    context.Prices.Remove(price);
+                }
+
                 var course = await context.Courses.FindAsync(request.CourseId);
                 if (course == null)
                 {
