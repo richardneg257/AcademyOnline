@@ -21,6 +21,8 @@ namespace AcademyOnline.Application.Courses
             public string Description { get; set; }
             public DateTime? PublicationDate { get; set; }
             public List<Guid> InstructorsLink { get; set; }
+            public decimal? Price { get; set; }
+            public decimal? PromotionPrice { get; set; }
         }
 
         public class UpdateCourseQueryValidation : AbstractValidator<UpdateCourseQuery>
@@ -51,6 +53,24 @@ namespace AcademyOnline.Application.Courses
                 course.Title = request.Title ?? course.Title;
                 course.Description = request.Description ?? course.Description;
                 course.PublicationDate = request.PublicationDate ?? course.PublicationDate;
+
+                var priceEntity = context.Prices.FirstOrDefault(x => x.CourseId == course.CourseId);
+                if (priceEntity != null)
+                {
+                    priceEntity.CurrentPrice = request.Price ?? priceEntity.CurrentPrice;
+                    priceEntity.PromotionPrice = request.PromotionPrice ?? priceEntity.PromotionPrice;
+                }
+                else
+                {
+                    priceEntity = new Price
+                    {
+                        PriceId = Guid.NewGuid(),
+                        CurrentPrice = request.Price ?? 0,
+                        PromotionPrice = request.PromotionPrice ?? 0,
+                        CourseId = course.CourseId
+                    };
+                    context.Prices.Add(priceEntity);
+                }
 
                 if (request.InstructorsLink != null && request.InstructorsLink.Count > 0)
                 {
