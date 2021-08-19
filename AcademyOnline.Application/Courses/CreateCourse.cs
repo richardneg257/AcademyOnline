@@ -19,6 +19,8 @@ namespace AcademyOnline.Application.Courses
             public string Description { get; set; }
             public DateTime? PublicationDate { get; set; }
             public List<Guid> InstructorsLink { get; set; }
+            public decimal Price { get; set; }
+            public decimal PromotionPrice { get; set; }
         }
 
         public class CreateCourseQueryValidation : AbstractValidator<CreateCourseQuery>
@@ -65,6 +67,15 @@ namespace AcademyOnline.Application.Courses
                         context.CourseInstuctor.Add(courseInstructor);
                     }
                 }
+
+                var priceEntity = new Price
+                {
+                    PriceId = Guid.NewGuid(),
+                    CourseId = courseId,
+                    CurrentPrice = request.Price,
+                    PromotionPrice = request.PromotionPrice
+                };
+                context.Prices.Add(priceEntity);
 
                 var state = await context.SaveChangesAsync();
                 if (state > 0)
