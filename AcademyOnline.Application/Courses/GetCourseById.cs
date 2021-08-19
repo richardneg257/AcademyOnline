@@ -31,7 +31,11 @@ namespace AcademyOnline.Application.Courses
 
             public async Task<CourseDto> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
             {
-                var course = await context.Courses.Include(x => x.InstructorsLink).ThenInclude(x => x.Instructor).FirstOrDefaultAsync(x => x.CourseId == request.CourseId);
+                var course = await context.Courses
+                    .Include(x => x.Price)
+                    .Include(x => x.Comments)
+                    .Include(x => x.InstructorsLink)
+                    .ThenInclude(x => x.Instructor).FirstOrDefaultAsync(x => x.CourseId == request.CourseId);
                 
                 if (course == null)
                     throw new ExceptionHandler(HttpStatusCode.NotFound, new { message = "ExceptionHandler: No se encontró el curso" });

@@ -14,5 +14,7 @@ namespace AcademyOnline.Application.Courses
         public DateTime? PublicationDate { get; set; }
         public byte[] ProfilePhoto { get; set; }
         public ICollection<InstructorDto> Instructors { get; set; }
+        public PriceDto Price { get; set; }
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }

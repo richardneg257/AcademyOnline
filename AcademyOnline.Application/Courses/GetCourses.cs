@@ -29,7 +29,11 @@ namespace AcademyOnline.Application.Courses
 
             public async Task<List<CourseDto>> Handle(GetCoursesQuery request, CancellationToken cancellationToken)
             {
-                var courses = await context.Courses.Include(x => x.InstructorsLink).ThenInclude(x => x.Instructor).ToListAsync();
+                var courses = await context.Courses
+                    .Include(x => x.Comments)
+                    .Include(x => x.Price)
+                    .Include(x => x.InstructorsLink)
+                    .ThenInclude(x => x.Instructor).ToListAsync();
                 var coursesDto = mapper.Map<List<Course>, List<CourseDto>>(courses);
                 return coursesDto;
             }
